@@ -28,7 +28,7 @@ export function FlashcardProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const fetchFlashcardSets = async () => {
       try {
-        const response = await fetch("/api/flashcards", { cache: "no-store" })
+        const response = await fetch("/api/flashcards", { next: { revalidate: 0 }})
         const data = await response.json()
         if (data.success) {
           setFlashcardSets(data.flashcardSets)
