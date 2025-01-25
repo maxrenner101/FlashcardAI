@@ -17,14 +17,14 @@ export async function POST(req: Request) {
   const createFlashcardSetTool = tool({
     description: "Creates a flashcard set with a title and cards containing front and back text.",
     parameters: z.object({
-      title: z.string(),
+      title: z.string().describe("The title of the flashcard set."),
       cards: z.array(
         z.object({
-          front: z.string(),
-          back: z.string(),
-        }),
-      ),
-    }),
+          front: z.string().describe("The text displayed on the front of the card."),
+          back: z.string().describe("The text displayed on the back of the card."),
+        })
+      ).describe("An array of cards, each with a front and back text."),
+    }),    
     execute: async ({ title, cards }) => {
       const response = await fetch("/api/flashcards/add", {
         method: "POST",
