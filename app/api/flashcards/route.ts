@@ -8,10 +8,7 @@ export async function GET() {
 
     const flashcardSets = await db.collection("flashcardSets").find({}).sort({ createdAt: -1 }).toArray()
 
-    const response = NextResponse.json({ success: true, flashcardSets })
-    response.headers.set("Cache-Control", "no-store, max-age=0")
-
-    return response
+    return NextResponse.json({ success: true, flashcardSets })
   } catch (error) {
     console.error(error)
     return NextResponse.json({ success: false, error: "Failed to retrieve flashcard sets" }, { status: 500 })
