@@ -4,6 +4,8 @@ import { Providers } from "@/components/providers"
 import { FlashcardProvider } from "@/contexts/FlashcardContext"
 import "@/styles/globals.css"
 
+export const fetchCache = "force-no-store"
+
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata = {
