@@ -1,6 +1,5 @@
 "use client"
 
-import { revalidatePath } from "next/cache"
 import React, { createContext, useContext, useState, useEffect, type ReactNode } from "react"
 
 export interface Flashcard {
@@ -29,7 +28,6 @@ export function FlashcardProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const fetchFlashcardSets = async () => {
       try {
-        revalidatePath("/api/flashcards")
         const response = await fetch("/api/flashcards", { next: { revalidate: 0 }})
         const data = await response.json()
         if (data.success) {
