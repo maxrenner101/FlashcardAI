@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server"
 import clientPromise from "@/lib/mongodb"
 
-export const dynamic = "force-dynamic"
-
-export async function GET() {
+export async function POST() {
   try {
     const client = await clientPromise
     const db = client.db("flashcards")

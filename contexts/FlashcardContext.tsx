@@ -16,6 +16,8 @@ export interface FlashcardSet {
 interface FlashcardContextType {
   flashcardSets: FlashcardSet[]
   addFlashcardSet: (newSet: Omit<FlashcardSet, "_id">) => void
+  selectedSet: FlashcardSet | null
+  setSelectedSet: (set: FlashcardSet | null) => void
   isLoading: boolean
 }
 
@@ -23,12 +25,15 @@ const FlashcardContext = createContext<FlashcardContextType | undefined>(undefin
 
 export function FlashcardProvider({ children }: { children: ReactNode }) {
   const [flashcardSets, setFlashcardSets] = useState<FlashcardSet[]>([])
+  const [selectedSet, setSelectedSet] = useState<FlashcardSet | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const fetchFlashcardSets = async () => {
       try {
-        const response = await fetch("/api/flashcards", { next: { revalidate: 0 }})
+        const response = await fetch("/api/flashcards", {
+          method: "POST"
+        })
         const data = await response.json()
         if (data.success) {
           setFlashcardSets(data.flashcardSets)
@@ -66,7 +71,7 @@ export function FlashcardProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <FlashcardContext.Provider value={{ flashcardSets, addFlashcardSet, isLoading }}>
+    <FlashcardContext.Provider value={{ flashcardSets, addFlashcardSet, selectedSet, setSelectedSet, isLoading }}>
       {children}
     </FlashcardContext.Provider>
   )

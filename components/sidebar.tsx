@@ -8,8 +8,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { useFlashcards, type FlashcardSet } from "@/contexts/FlashcardContext"
 
 export function Sidebar() {
-  const { flashcardSets, isLoading } = useFlashcards()
-  const [selectedSet, setSelectedSet] = useState<FlashcardSet | null>(null)
+  const { flashcardSets, selectedSet, setSelectedSet, isLoading } = useFlashcards();
   const [currentCardIndex, setCurrentCardIndex] = useState(0)
 
   const handleSetClick = (set: FlashcardSet) => {
