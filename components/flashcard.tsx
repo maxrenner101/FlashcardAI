@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 
 interface FlashcardProps {
@@ -10,6 +10,10 @@ interface FlashcardProps {
 
 export function Flashcard({ front, back }: FlashcardProps) {
   const [isFlipped, setIsFlipped] = useState(false)
+
+  useEffect(() => {
+    setIsFlipped(false)
+  }, [front, back])
 
   return (
     <div className="cursor-pointer perspective-1000 w-64 h-64 mx-auto" onClick={() => setIsFlipped(!isFlipped)}>
